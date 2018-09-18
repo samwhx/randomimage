@@ -2,6 +2,10 @@
 const express = require('express')
 const path = require('path')
 
+// load resources
+const resources = ['images',
+            'public']
+
 // start express
 const app = express()
 
@@ -38,6 +42,17 @@ app.get('/image', (req, resp) => {
   resp.send(`<img src="${image_name}">`)
 })
 
+//api
+app.get('/random-image-download', (req, resp) => {
+
+  image_name = getImageName()
+
+  resp.status(200)
+  resp.type('image/png')
+  resp.sendfile(path.join(__dirname, 'images', imageFile))
+})
+
+//api
 app.get('/random-image', (req, resp) => {
 
   image_name = getImageName()
@@ -62,10 +77,13 @@ app.get('/random-image', (req, resp) => {
 
 })
 
-app.use(express.static(path.join(__dirname, 'images')))
+for (let res of resources) {
+  console.info(`loading static resource: ${res}`);
+  app.use(express.static(path.join(__dirname, res)));
+}
 
 // listen to port
-const PORT = parseInt(process.argv[2]) || parseInt(process.env.APP_PORT) || 4000
+const PORT = parseInt(process.argv[2]) || parseInt(process.env.APP_PORT) || 6500
 app.listen(PORT, () => {
   console.info(`Application started on port ${PORT} at ${new Date()}`)
 })
