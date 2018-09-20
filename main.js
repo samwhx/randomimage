@@ -39,6 +39,7 @@ app.get('/image', (req, resp) => {
   resp.status(200)
   resp.format ({
     'text/html': () => {
+      // resp.render('folder/image', {image: image_name, layout: 'abc.html'})
       resp.render('image', {image: image_name})
     },
     'application/json': () => {
