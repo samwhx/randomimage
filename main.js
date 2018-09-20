@@ -14,7 +14,7 @@ const imageFolderPath = path.join(__dirname, 'public', 'images');
 const app = express()
 
 //start handlebars
-app.engine('hbs', hbs())
+app.engine('hbs', hbs({ defaultLayout: 'index.html'}))
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
