@@ -68,12 +68,12 @@ app.get('/image', (req, resp) => {
   })
 })
 
-//api
+//api //chaining resp
 app.get('/random-image', (req, resp) => {
   image_name = getRandomImageName()
   resp.status(200)
-  resp.type('image/jpg')
-  resp.sendfile(path.join(imageFolderPath, image_name))
+  .type('image/jpg')
+  .sendfile(path.join(imageFolderPath, image_name))
 })
 
 //load multiple static resources
